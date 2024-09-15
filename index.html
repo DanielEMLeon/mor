@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hola Amor</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background: url('images/cielo.jpg') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Arial', sans-serif;
+            color: white;
+        }
+
+        .container {
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 40px;
+            border-radius: 15px;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 1.2rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="date"] {
+            padding: 10px;
+            font-size: 1rem;
+            border-radius: 5px;
+            border: none;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            background-color: #ff4081;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            position: relative;
+        }
+
+        button:hover {
+            background-color: #e91e63;
+        }
+
+        .error {
+            color: red;
+            font-size: 1rem;
+            display: none;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Hola amor</h1>
+        <p>Para continuar, necesito que introduzcas la fecha de cuando nos hicimos novios:</p>
+        <form id="dateForm">
+            <label for="date">Fecha:</label>
+            <input type="date" id="date" required>
+            <button type="submit" id="submitBtn">Enviar</button>
+        </form>
+        <p class="error" id="error">No me amas lo suficiente, me dueles.</p>
+    </div>
+
+    <script>
+        document.getElementById('dateForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const correctDate = '2020-10-21'; // Fecha correcta
+            const inputDate = document.getElementById('date').value;
+            const submitBtn = document.getElementById('submitBtn');
+            const errorMessage = document.getElementById('error');
+
+            if (inputDate === correctDate) {
+                window.location.href = 'flores.html'; // Cambia 'tu-pagina.html' por la URL a la que quieres redirigir
+            } else {
+                errorMessage.style.display = 'block';
+                moveButtonRandom(submitBtn);
+            }
+        });
+
+        function moveButtonRandom(button) {
+            const container = button.parentElement;
+            const containerRect = container.getBoundingClientRect();
+            const maxX = containerRect.width - button.offsetWidth;
+            const maxY = containerRect.height - button.offsetHeight;
+
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
+
+            button.style.transform = `translate(${randomX}px, ${randomY}px)`;
+        }
+    </script>
+</body>
+</html>
