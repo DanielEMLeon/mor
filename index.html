@@ -18,12 +18,11 @@
             color: white;
         }
 
-        .container {
+        .container, .message-container {
             text-align: center;
             background-color: rgba(0, 0, 0, 0.6);
             padding: 40px;
             border-radius: 15px;
-            position: relative;
         }
 
         h1 {
@@ -67,10 +66,24 @@
             display: none;
             margin-top: 10px;
         }
+
+        .hidden {
+            display: none;
+        }
+
+        #love-message {
+            font-size: 2rem;
+            margin-bottom: 30px;
+        }
+
+        #chimuelo {
+            width: 400px;
+            border-radius: 15px;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container" id="form-container">
         <h1>Hola amor</h1>
         <p>Para continuar, necesito que introduzcas la fecha de cuando nos hicimos novios:</p>
         <form id="dateForm">
@@ -79,6 +92,17 @@
             <button type="submit" id="submitBtn">Enviar</button>
         </form>
         <p class="error" id="error">No me amas lo suficiente, me dueles.</p>
+    </div>
+
+    <div class="message-container hidden" id="message-container">
+        <p id="love-message">Mi amor, eres lo más especial que me ha pasado en la vida. ¿Te gustaría pasar el resto de la vida conmigo?</p>
+        <button id="yesBtn">Sí, claro</button>
+        <button id="noBtn">No, wácala</button>
+    </div>
+
+    <div class="hidden" id="final-message-container">
+        <img src="dragon.jpg" alt="Chimuelo y su novia" id="chimuelo">
+        <h3 id="final-message">Gracias, te amo mucho hermosa. Te mereces esto.</h3>
     </div>
 
     <script>
@@ -90,7 +114,8 @@
             const errorMessage = document.getElementById('error');
 
             if (inputDate === correctDate) {
-                window.location.href = 'flores.html'; // Cambia 'tu-pagina.html' por la URL a la que quieres redirigir
+                document.getElementById('form-container').classList.add('hidden');
+                document.getElementById('message-container').classList.remove('hidden');
             } else {
                 errorMessage.style.display = 'block';
                 moveButtonRandom(submitBtn);
@@ -108,6 +133,21 @@
 
             button.style.transform = `translate(${randomX}px, ${randomY}px)`;
         }
+
+        const noBtn = document.getElementById('noBtn');
+        noBtn.addEventListener('mouseover', function() {
+            moveButtonRandom(noBtn);
+        });
+
+        document.getElementById('yesBtn').addEventListener('click', function() {
+            document.getElementById('message-container').classList.add('hidden');
+            document.getElementById('final-message-container').classList.remove('hidden');
+
+            // Desaparece todo y redirige después de 5 segundos
+            setTimeout(function() {
+                window.location.href = 'flores.html'; // Cambia 'tu-pagina.html' por la URL de destino
+            }, 5000);
+        });
     </script>
 </body>
 </html>
